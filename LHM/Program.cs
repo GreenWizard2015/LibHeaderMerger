@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Security.Cryptography;
+using System.Linq;
 using CORE;
 
 namespace LHM {
@@ -13,6 +11,7 @@ namespace LHM {
           // show help
         } else {
           doWork(param);
+          Console.WriteLine("Done.");
         }
       } catch (Exception e) {
         Console.WriteLine(e.ToString());
@@ -24,7 +23,10 @@ namespace LHM {
       var headers = param.Headers();
       var merger = new CHeaderMerger(headers);
       var templates = param.Templates(param.Dest);
-      foreach (var template in templates) {
+      var N = templates.Count;
+      foreach (var i in Enumerable.Range(0, N)) {
+        Console.WriteLine(String.Format("Processing {0}/{1}", 1 + i, N));
+        var template = templates[i];
         var result = merger.process(template.content());
         template.put(result);
       }

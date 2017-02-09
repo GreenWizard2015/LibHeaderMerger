@@ -12,18 +12,21 @@ namespace GUITest {
 
     private CSourceLocator locator = null;
     private void onRefresh(object sender, RoutedEventArgs e) {
-      try {
-        locator = new CSourceLocator(tbSrcFolder.Text);
-        lbTemplates.ItemsSource = locator.Headers();
-      } catch (Exception) {
-        throw;
-      }
+      locator = new CSourceLocator(tbSrcFolder.Text);
+      lbTemplates.ItemsSource = locator.Templates();
     }
 
     private void onSelectTemplate(object sender, SelectionChangedEventArgs e) {
       var lb = (ListBox) sender;
       var selected = (CFileEntry)lb.SelectedItem;
       tbSource.Text = (null == selected) ? "" : selected.content();
+    }
+
+    private void onSourceChanged(object sender, TextChangedEventArgs e) {
+      if (null == locator) return;
+      
+      var merger = new CHeaderMerger(locator.Headers());
+      tbResult.Text = merger.process(tbSource.Text);
     }
   }
 }

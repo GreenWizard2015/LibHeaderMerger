@@ -36,7 +36,8 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <TextBox Name="tbSource" Grid.Column="1"/>
+            <TextBox Name="tbSource" Grid.Column="1"
+                     TextChanged="onSourceChanged"/>
             <TextBox Name="tbResult" Grid.Column="2"
                      IsReadOnly="True" Background="Silver"
                      />

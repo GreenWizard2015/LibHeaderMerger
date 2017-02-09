@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using CORE;
 
 namespace LHM {
   internal class CParameters {
-    public readonly string Source;
+    private readonly CSourceLocator sourceLocator;
     public readonly string Dest;
 
     private CParameters(string source, string dest) {
-      Source = source;
+      sourceLocator = new CSourceLocator(source);
       Dest = dest;
     }
 
@@ -18,12 +19,14 @@ namespace LHM {
       return new CParameters(args[0], args[1]);
     }
 
-    public IList<CBaseHeader> Headers() {
-      throw new NotImplementedException();
+    public IList<CFileEntry> Headers() {
+      return sourceLocator.Headers();
     }
 
     public IList<CTemplate> Templates(string dest) {
-      throw new NotImplementedException();
+      return sourceLocator.Templates()
+        .Select(x => new CTemplate(dest, x))
+        .ToList();
     }
   }
 }

@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace CORE {
   public class CHeaderMerger {
-    private readonly IList<CBaseHeader> _headers;
+    private readonly IList<CFileEntry> _headers;
 
-    public CHeaderMerger(IList<CBaseHeader> headers) {
+    public CHeaderMerger(IList<CFileEntry> headers) {
       _headers = headers;
     }
 
     public string process(string content) {
-      throw new NotImplementedException();
+      return "NotImplemented";
     }
   }
 }
