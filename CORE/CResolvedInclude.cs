@@ -4,20 +4,25 @@ using System.IO;
 namespace CORE {
   internal class CResolvedInclude {
     private readonly CIncludeDirective _include;
-    private readonly CPath _relDir;
+    private readonly CPath _path;
 
-    public CResolvedInclude(CIncludeDirective include, CPath relDir) {
+    public bool isRelative {
+      get { return _include.isRelative; }
+    }
+
+    public CResolvedInclude(CIncludeDirective include, CPath root) {
       _include = include;
-      _relDir = relDir;
+
+      var name = _include.Name;
+      _path = _include.isRelative ? root.resolve(name) : new CPath(name);
     }
 
     public string Name {
       get { return _include.Name; }
     }
-
     public string FullPath {
       get {
-        return _relDir.resolve(_include.Name).Normalized;
+        return _path.Normalized;
       }
     }
 
@@ -30,9 +35,17 @@ namespace CORE {
       try {
         var content = File.ReadAllText(FullPath);
         return string.Format("//{0}\n{1}", incDirective, content);
-      } catch (Exception e) {
+      } catch(Exception e) {
         return incDirective + " // <= " + e.Message;
       }
+    }
+
+    public string content() {
+      var res = "";
+      try {
+        if (_include.isRelative) res = File.ReadAllText(FullPath);
+      } catch {}
+      return res;
     }
   }
 }

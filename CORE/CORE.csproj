@@ -43,6 +43,7 @@
     <Compile Include="CBaseHeader.cs" />
     <Compile Include="CFileEntry.cs" />
     <Compile Include="CHeaderContent.cs" />
+    <Compile Include="CHeaderFile.cs" />
     <Compile Include="CHeaderMerger.cs" />
     <Compile Include="CIncludeDirective.cs" />
     <Compile Include="CPath.cs" />

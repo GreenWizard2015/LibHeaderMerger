@@ -25,11 +25,5 @@ namespace CORE {
     public IList<CFileEntry> Templates() {
       return findAll(TMPL_EXT).ToList();
     }
-
-    public IList<CFileEntry> Headers() {
-      return findAll("*.H")
-        .Where(x => !x.Name.ToLower().EndsWith(TMPL_EXT))
-        .ToList();
-    }
   }
 }

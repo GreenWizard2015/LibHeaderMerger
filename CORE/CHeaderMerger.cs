@@ -1,20 +1,40 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace CORE {
   public class CHeaderMerger {
-    private readonly IList<CFileEntry> _headers;
-    //private List<CParsedHeaders> _parsedHeaders;
-    public CHeaderMerger(IList<CFileEntry> headers) {
-      _headers = headers;
+    public CHeaderMerger() {
     }
 
     public string process(string content, CPath root) {
-      var includes = new CHeaderContent(content)
-        .Includes()
-        .Select(x => new CResolvedInclude(x, root));
+      var header = new CHeaderContent(content);
+      var res = new StringBuilder();
+      var includedAlready = new List<string>();
+      foreach (var part in header.split(root)) {
+        if (part.isCode) {
+          res.AppendLine(part.Code());
+          continue;
+        }
 
-      return string.Join("\n", includes.Select(x => x.Expand()));
+        var include = part.Include();
+        var path = include.FullPath;
+        if(includedAlready.Any(x => x == path))
+          continue;
+
+        includedAlready.Add(path);
+        if(include.isRelative) {
+          res.AppendLine("///////////////////");
+          res.AppendLine("// " + include.Name);
+          res.AppendLine("///////////////////");
+          res.AppendLine(include.content());
+          var inc = new CHeaderContent(include.content());
+        } else {
+          res.AppendLine(include.Expand());
+        }
+      }
+
+      return res.ToString();
     }
   }
 }

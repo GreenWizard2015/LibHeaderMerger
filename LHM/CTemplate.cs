@@ -16,5 +16,9 @@ namespace LHM {
     public void put(string content) {
       throw new NotImplementedException();
     }
+
+    public CPath Directory() {
+      return _file.Dir;
+    }
   }
 }

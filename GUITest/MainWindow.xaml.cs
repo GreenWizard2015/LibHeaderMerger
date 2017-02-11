@@ -10,8 +10,8 @@ namespace GUITest {
       InitializeComponent();
       ///////////////////
       /// for testing
-      onRefresh(null, null);
-      lbTemplates.SelectedIndex = 0;
+//       onRefresh(null, null);
+//       lbTemplates.SelectedIndex = 0;
     }
 
     private CSourceLocator locator = null;
@@ -23,7 +23,7 @@ namespace GUITest {
       lbTemplates.ItemsSource = locator.Templates();
     }
 
-    private void onSelectTemplate(object sender, SelectionChangedEventArgs e) {
+    private void onSelectTemplate(object sender, SelectionChangedEventArgs e){
       var lb = (ListBox)sender;
       var selected = (CFileEntry)lb.SelectedItem;
       tbSource.Text = (null == selected) ? "" : selected.content();
@@ -32,7 +32,7 @@ namespace GUITest {
     private void onSourceChanged(object sender, TextChangedEventArgs e) {
       if (null == locator) return;
 
-      var merger = new CHeaderMerger(locator.Headers());
+      var merger = new CHeaderMerger();
       var selected = (CFileEntry)lbTemplates.SelectedItem;
       tbResult.Text = merger.process(tbSource.Text, selected.Dir);
     }

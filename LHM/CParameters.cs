@@ -19,10 +19,6 @@ namespace LHM {
       return new CParameters(args[0], args[1]);
     }
 
-    public IList<CFileEntry> Headers() {
-      return sourceLocator.Headers();
-    }
-
     public IList<CTemplate> Templates(string dest) {
       return sourceLocator.Templates()
         .Select(x => new CTemplate(dest, x))

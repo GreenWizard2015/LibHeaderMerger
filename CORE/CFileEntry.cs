@@ -3,7 +3,6 @@ using System.IO;
 namespace CORE {
   public class CFileEntry {
     private readonly CPath _path;
-    
     public string Name { get; private set; }
 
     public CPath Dir {
