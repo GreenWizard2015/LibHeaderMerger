@@ -2,16 +2,21 @@ using System.IO;
 
 namespace CORE {
   public class CFileEntry {
-    private readonly string _fullName;
+    private readonly CPath _path;
+    
     public string Name { get; private set; }
 
-    public CFileEntry(string folder, string fullName) {
-      _fullName = fullName.ToLower();
-      Name = _fullName.Substring(folder.Length);
+    public CPath Dir {
+      get { return _path.parent(); }
+    }
+
+    public CFileEntry(CPath path, string relName) {
+      _path = path.resolve(relName);
+      Name = _path.relativeTo(path).Normalized;
     }
 
     public string content() {
-      return File.ReadAllText(_fullName);
+      return File.ReadAllText(_path.Normalized);
     }
   }
 }

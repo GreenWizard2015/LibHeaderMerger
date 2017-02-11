@@ -18,7 +18,7 @@
             </Grid.ColumnDefinitions>
             <Label>Source directory:</Label>
             <TextBox Grid.Column="1" Name="tbSrcFolder">
-                ..\..\..\TestSrc
+                ..\..\TestSrc
             </TextBox>
             <Button Grid.Column="2" Click="onRefresh">Refresh</Button>
         </Grid>

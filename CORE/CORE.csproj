@@ -43,6 +43,9 @@
     <Compile Include="CBaseHeader.cs" />
     <Compile Include="CFileEntry.cs" />
     <Compile Include="CHeaderMerger.cs" />
+    <Compile Include="CIncludeDirective.cs" />
+    <Compile Include="CPath.cs" />
+    <Compile Include="CResolvedInclude.cs" />
     <Compile Include="CSourceLocator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

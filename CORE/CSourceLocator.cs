@@ -2,24 +2,20 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace CORE {
   public class CSourceLocator {
-    private readonly string _folder;
+    private readonly CPath _folder;
     private const string TMPL_EXT = "*.t.h";
 
     public CSourceLocator(string folder) {
-      _folder = Path.GetFullPath(folder);
-      if (!_folder.EndsWith("\\")) {
-        _folder += "\\";
-      }
+      _folder = (new CPath(folder)).asFolder();
     }
 
     private IEnumerable<CFileEntry> findAll(string mask) {
       try {
         return Directory
-          .GetFiles(_folder, mask, SearchOption.AllDirectories)
+          .GetFiles(_folder.Normalized, mask, SearchOption.AllDirectories)
           .Select(s => new CFileEntry(_folder, s));
       } catch (Exception) {
         return new List<CFileEntry>();

@@ -27,7 +27,7 @@ namespace LHM {
       foreach (var i in Enumerable.Range(0, N)) {
         Console.WriteLine(String.Format("Processing {0}/{1}", 1 + i, N));
         var template = templates[i];
-        var result = merger.process(template.content());
+        var result = merger.process(template.content(), "");
         template.put(result);
       }
     }
