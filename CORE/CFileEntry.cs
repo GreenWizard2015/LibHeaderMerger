@@ -9,6 +9,10 @@ namespace CORE {
 			get { return _path.parent(); }
 		}
 
+		public string FullName {
+			get { return _path.Normalized; }
+		}
+
 		public CFileEntry(CPath path, string relName) {
 			_path = path.resolve(relName);
 			Name = _path.relativeTo(path).Normalized;

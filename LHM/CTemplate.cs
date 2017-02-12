@@ -3,9 +3,11 @@ using CORE;
 
 namespace LHM {
 	public class CTemplate {
+		private readonly CPath _dest;
 		private readonly CFileEntry _file;
 
-		public CTemplate(string dest, CFileEntry file) {
+		public CTemplate(CPath dest, CFileEntry file) {
+			_dest = dest.resolve(file.Name);
 			_file = file;
 		}
 
@@ -14,7 +16,11 @@ namespace LHM {
 		}
 
 		public void put(string content) {
-			throw new NotImplementedException();
+			Console.WriteLine("Source file: " + _file.FullName);
+			Console.WriteLine("Destination file: " + _dest.Normalized);
+// 			Console.WriteLine("Content:");
+// 			Console.WriteLine(content);
+			Console.WriteLine("--------------------------");
 		}
 
 		public CPath Directory() {

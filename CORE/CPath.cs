@@ -23,7 +23,7 @@ namespace CORE {
 
 		public bool isFolder {
 			get {
-				var sep = System.IO.Path.DirectorySeparatorChar.ToString();
+				var sep = Path.DirectorySeparatorChar.ToString();
 				return Normalized.EndsWith(sep);
 			}
 		}

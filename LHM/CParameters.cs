@@ -1,15 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CORE;
 
 namespace LHM {
 	internal class CParameters {
-		private readonly CSourceLocator sourceLocator;
-		public readonly string Dest;
+		private readonly CSourceLocator _sourceLocator;
+		private readonly CPath _dest;
 
 		private CParameters(string source, string dest) {
-			sourceLocator = new CSourceLocator(source);
-			Dest = dest;
+			var current = new CPath(Environment.CurrentDirectory);
+			_sourceLocator = new CSourceLocator(current.resolve(source));
+			_dest = current.resolve(dest).asFolder();
 		}
 
 		public static CParameters from(string[] args) {
@@ -17,9 +19,9 @@ namespace LHM {
 			return new CParameters(args[0], args[1]);
 		}
 
-		public IList<CTemplate> Templates(string dest) {
-			return sourceLocator.Templates()
-				.Select(x => new CTemplate(dest, x))
+		public IList<CTemplate> Templates() {
+			return _sourceLocator.Templates()
+				.Select(x => new CTemplate(_dest, x))
 				.ToList();
 		}
 	}

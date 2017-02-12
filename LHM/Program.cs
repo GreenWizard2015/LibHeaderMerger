@@ -5,7 +5,7 @@ using CORE;
 namespace LHM {
 	class Program {
 		static void Main(string[] args) {
-			try {
+//			try {
 				var param = CParameters.from(args);
 				if(null == param) {
 					// show help
@@ -13,15 +13,16 @@ namespace LHM {
 					doWork(param);
 					Console.WriteLine("Done.");
 				}
-			} catch (Exception e) {
-				Console.WriteLine(e.ToString());
-			}
+// 			} catch (Exception e) {
+// 				Console.WriteLine(e.ToString());
+// 				throw;
+// 			}
 			Console.ReadLine();
 		}
 
 		private static void doWork(CParameters param) {
 			var merger = new CHeaderMerger();
-			var templates = param.Templates(param.Dest);
+			var templates = param.Templates();
 			var N = templates.Count;
 			foreach (var i in Enumerable.Range(0, N)) {
 				Console.WriteLine(String.Format("Processing {0}/{1}", 1 + i, N));

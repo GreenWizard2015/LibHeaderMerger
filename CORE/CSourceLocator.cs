@@ -8,8 +8,8 @@ namespace CORE {
 		private readonly CPath _folder;
 		private const string TMPL_EXT = "*.t.h";
 
-		public CSourceLocator(string folder) {
-			_folder = (new CPath(folder)).asFolder();
+		public CSourceLocator(CPath folder) {
+			_folder = folder.asFolder();
 		}
 
 		private IEnumerable<CFileEntry> findAll(string mask) {
