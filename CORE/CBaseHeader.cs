@@ -1,4 +1,4 @@
 namespace CORE {
-  public class CBaseHeader {
-  }
+	public class CBaseHeader {
+	}
 }
