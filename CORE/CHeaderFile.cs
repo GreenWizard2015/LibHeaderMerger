@@ -8,7 +8,7 @@ namespace CORE {
       _file = new CPathReader(file);
     }
 
-    public IList<CHeaderPart> split() {
+    public IEnumerable<CHeaderLine> split() {
       var header = new CHeaderContent(_file.content());
       return header.split(_file.Directory);
     }

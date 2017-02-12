@@ -26,6 +26,16 @@ namespace CORE {
       }
     }
 
+    public bool Openable {
+      get {
+        try {
+          return isRelative && File.Exists(FullPath);
+        } catch (Exception) {
+          return false;
+        }
+      }
+    }
+
     public string asDirective() {
       return _include.Include;
     }

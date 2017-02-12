@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
@@ -17,57 +16,26 @@ namespace CORE {
         "(.+?)" + // 3
         "[\\>\"]" +
       ")";
+    private static readonly Regex RE = 
+      new Regex(INCLUDE_RE, RegexOptions.Compiled);
 
-    public IList<CHeaderPart> split(CPath root) {
-      var RE = new Regex(INCLUDE_RE, RegexOptions.Multiline);
-      var res = new List<CHeaderPart>();
-      int lastCodePos = 0;
+    public IEnumerable<CHeaderLine> split(CPath root) {
+      var lines = _content
+        .Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
 
-      Action<int, int> cutCode = (from, to) => {
-        var code = _content.Substring(from, to - from);
-        if (!string.IsNullOrWhiteSpace(code)) {
-          res.Add(new CHeaderPart(code));
+      foreach (var line in lines) {
+        var match = RE.Match(line);
+        if (!match.Success) {
+          yield return new CHeaderLine(line);
+          continue;
         }
-      };
 
-      foreach(Match match in RE.Matches(_content)) {
-        cutCode(lastCodePos, match.Index);
-        
         var type = match.Groups[2].Value;
         var name = match.Groups[3].Value;
         var include = new CIncludeDirective(type == "<", name);
         var resolved = new CResolvedInclude(include, root);
-        res.Add(new CHeaderPart(resolved));
-
-        lastCodePos = match.Index + match.Length;// + 1;
+        yield return new CHeaderLine(resolved);
       }
-      cutCode(lastCodePos, _content.Length);
-
-      return res;
-    }
-  }
-
-  internal class CHeaderPart {
-    private readonly CResolvedInclude _include;
-    private readonly string _code;
-    public readonly bool isCode;
-
-    public CHeaderPart(string code) {
-      _code = code;
-      isCode = true;
-    }
-
-    public CHeaderPart(CResolvedInclude include) {
-      _include = include;
-      isCode = false;
-    }
-
-    public string Code() {
-      return _code;
-    }
-
-    public CResolvedInclude Include() {
-      return _include;
     }
   }
 }

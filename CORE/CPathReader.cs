@@ -14,11 +14,7 @@ namespace CORE {
     }
 
     public string content() {
-      try {
-        return File.ReadAllText(_file.Normalized);
-      } catch (Exception) {
-        return "";
-      }
+      return File.ReadAllText(_file.Normalized);
     }
   }
 }
