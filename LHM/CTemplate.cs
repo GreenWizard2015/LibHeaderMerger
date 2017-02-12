@@ -1,14 +1,20 @@
 ﻿using System;
+using System.IO;
+using System.Text.RegularExpressions;
 using CORE;
 
 namespace LHM {
 	public class CTemplate {
-		private readonly CPath _dest;
+		private readonly CPath _destDir;
 		private readonly CFileEntry _file;
 
-		public CTemplate(CPath dest, CFileEntry file) {
-			_dest = dest.resolve(file.Name);
+		public CTemplate(CPath destDir, CFileEntry file) {
+			_destDir = destDir;
 			_file = file;
+		}
+
+		public string Name {
+			get { return _file.Name; }
 		}
 
 		public string content() {
@@ -16,11 +22,9 @@ namespace LHM {
 		}
 
 		public void put(string content) {
-			Console.WriteLine("Source file: " + _file.FullName);
-			Console.WriteLine("Destination file: " + _dest.Normalized);
-// 			Console.WriteLine("Content:");
-// 			Console.WriteLine(content);
-			Console.WriteLine("--------------------------");
+			var destPath = _destDir.resolve(_file.Name).changeExtension(".h");
+			System.IO.Directory.CreateDirectory(destPath.parent().Normalized);
+			File.WriteAllText(destPath.Normalized, content);
 		}
 
 		public CPath Directory() {

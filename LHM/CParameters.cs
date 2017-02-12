@@ -15,8 +15,10 @@ namespace LHM {
 		}
 
 		public static CParameters from(string[] args) {
-			// add checks
-			return new CParameters(args[0], args[1]);
+			if (args.Length < 1) return null;
+			var srcDir = args[0];
+			var destDir = (args.Length < 2) ? srcDir : args[1];
+			return new CParameters(srcDir, destDir);
 		}
 
 		public IList<CTemplate> Templates() {

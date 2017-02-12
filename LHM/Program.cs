@@ -5,30 +5,31 @@ using CORE;
 namespace LHM {
 	class Program {
 		static void Main(string[] args) {
-//			try {
+			try {
 				var param = CParameters.from(args);
 				if(null == param) {
-					// show help
+					showHelp();
 				} else {
 					doWork(param);
 					Console.WriteLine("Done.");
 				}
-// 			} catch (Exception e) {
-// 				Console.WriteLine(e.ToString());
-// 				throw;
-// 			}
+			} catch (Exception e) {
+				Console.WriteLine(e.ToString());
+			}
 			Console.ReadLine();
+		}
+
+		private static void showHelp() {
+			Console.WriteLine("Read source code! :-)");
 		}
 
 		private static void doWork(CParameters param) {
 			var merger = new CHeaderMerger();
 			var templates = param.Templates();
-			var N = templates.Count;
-			foreach (var i in Enumerable.Range(0, N)) {
-				Console.WriteLine(String.Format("Processing {0}/{1}", 1 + i, N));
-				var template = templates[i];
-				var result = merger.process(template.content(), template.Directory());
-				template.put(result);
+			foreach (var templ in templates) {
+				Console.WriteLine(String.Format("Processing... {0}", templ.Name));
+				var result = merger.process(templ.content(), templ.Directory());
+				templ.put(result);
 			}
 		}
 	}

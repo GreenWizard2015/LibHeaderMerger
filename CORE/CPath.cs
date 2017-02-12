@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace CORE {
 	public class CPath {
@@ -58,6 +59,14 @@ namespace CORE {
 
 		public CPath relativeTo(CPath other) {
 			return new CPath(other._path.MakeRelativeUri(_path));
+		}
+
+		public CPath changeExtension(string newExt) {
+			var name = Path.GetFileName(Normalized);
+			var dotPos = name.IndexOf('.');
+			if (dotPos > 0)
+				name = name.Substring(0, dotPos);
+			return parent().resolve(name + newExt);
 		}
 	}
 }

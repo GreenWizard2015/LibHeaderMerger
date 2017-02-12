@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CBaseHeader.cs" />
     <Compile Include="CFileEntry.cs" />
     <Compile Include="CHeaderContent.cs" />
     <Compile Include="CHeaderFile.cs" />

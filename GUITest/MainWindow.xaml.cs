@@ -18,7 +18,7 @@ namespace GUITest {
 			var root = new CPath(Environment.CurrentDirectory);
 			root = root.resolve(tbSrcFolder.Text).asFolder();
 
-			locator = new CSourceLocator(root.Normalized);
+			locator = new CSourceLocator(root);
 			lbTemplates.ItemsSource = locator.Templates();
 		}
 
