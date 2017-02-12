@@ -2,15 +2,15 @@ using System.Collections.Generic;
 
 namespace CORE {
   internal class CHeaderFile {
-    private readonly CFileEntry _file;
+    private readonly CPathReader _file;
 
-    public CHeaderFile(CFileEntry file) {
-      _file = file;
+    public CHeaderFile(CPath file) {
+      _file = new CPathReader(file);
     }
 
-    public IList<CResolvedInclude> Includes() {
+    public IList<CHeaderPart> split() {
       var header = new CHeaderContent(_file.content());
-      return header.Includes(_file.Dir);
+      return header.split(_file.Directory);
     }
   }
 }

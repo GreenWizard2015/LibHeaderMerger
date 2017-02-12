@@ -26,26 +26,12 @@ namespace CORE {
       }
     }
 
-    public string Expand() {
-      var incDirective = _include.Include;
-      if (!_include.isRelative) {
-        return incDirective;
-      }
-
-      try {
-        var content = File.ReadAllText(FullPath);
-        return string.Format("//{0}\n{1}", incDirective, content);
-      } catch(Exception e) {
-        return incDirective + " // <= " + e.Message;
-      }
+    public string asDirective() {
+      return _include.Include;
     }
 
-    public string content() {
-      var res = "";
-      try {
-        if (_include.isRelative) res = File.ReadAllText(FullPath);
-      } catch {}
-      return res;
+    public CHeaderFile Header() {
+      return new CHeaderFile(_path);
     }
   }
 }

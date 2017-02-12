@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
@@ -17,41 +18,31 @@ namespace CORE {
         "[\\>\"]" +
       ")";
 
-    public IList<CResolvedInclude> Includes(CPath root) {
-      var RE = new Regex(INCLUDE_RE, RegexOptions.Multiline);
-      var res = new List<CResolvedInclude>();
-      foreach (Match match in RE.Matches(_content)) {
-        var type = match.Groups[2].Value;
-        var name = match.Groups[3].Value;
-        var include = new CIncludeDirective(type == "<", name);
-        res.Add(new CResolvedInclude(include, root));
-      }
-      return res;
-    }
-
-    public List<CHeaderPart> split(CPath root) {
+    public IList<CHeaderPart> split(CPath root) {
       var RE = new Regex(INCLUDE_RE, RegexOptions.Multiline);
       var res = new List<CHeaderPart>();
       int lastCodePos = 0;
-      string code;
-      foreach(Match match in RE.Matches(_content)) {
-        code = _content.Substring(lastCodePos, match.Index - lastCodePos);
-        if(!string.IsNullOrWhiteSpace(code)) {
+
+      Action<int, int> cutCode = (from, to) => {
+        var code = _content.Substring(from, to - from);
+        if (!string.IsNullOrWhiteSpace(code)) {
           res.Add(new CHeaderPart(code));
         }
+      };
 
+      foreach(Match match in RE.Matches(_content)) {
+        cutCode(lastCodePos, match.Index);
+        
         var type = match.Groups[2].Value;
         var name = match.Groups[3].Value;
         var include = new CIncludeDirective(type == "<", name);
         var resolved = new CResolvedInclude(include, root);
         res.Add(new CHeaderPart(resolved));
 
-        lastCodePos = match.Index + match.Length + 1;
+        lastCodePos = match.Index + match.Length;// + 1;
       }
-      code = _content.Substring(lastCodePos);
-      if(!string.IsNullOrWhiteSpace(code)) {
-        res.Add(new CHeaderPart(code));
-      }
+      cutCode(lastCodePos, _content.Length);
+
       return res;
     }
   }

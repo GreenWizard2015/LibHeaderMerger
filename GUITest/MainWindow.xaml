@@ -37,9 +37,17 @@
                 </ListBox.ItemTemplate>
             </ListBox>
             <TextBox Name="tbSource" Grid.Column="1"
-                     TextChanged="onSourceChanged"/>
+                     TextChanged="onSourceChanged"
+                     TextWrapping="NoWrap"
+                     VerticalScrollBarVisibility="Auto"
+                     HorizontalScrollBarVisibility="Auto"
+                     AcceptsReturn="True"
+                     />
             <TextBox Name="tbResult" Grid.Column="2"
                      IsReadOnly="True" Background="Silver"
+                     TextWrapping="NoWrap"
+                     VerticalScrollBarVisibility="Auto"
+                     HorizontalScrollBarVisibility="Auto"
                      />
         </Grid>
         
