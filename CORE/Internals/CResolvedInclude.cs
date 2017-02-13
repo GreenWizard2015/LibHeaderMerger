@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 
-namespace CORE {
+namespace CORE.Internals {
 	internal class CResolvedInclude {
 		private readonly CIncludeDirective _include;
 		private readonly CPath _path;

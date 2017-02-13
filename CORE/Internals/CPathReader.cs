@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace CORE {
+namespace CORE.Internals {
 	internal class CPathReader {
 		private readonly CPath _file;
 

@@ -7,10 +7,6 @@ namespace GUITest {
 	public partial class MainWindow: Window {
 		public MainWindow() {
 			InitializeComponent();
-			///////////////////
-			/// for testing
-//			 onRefresh(null, null);
-//			 lbTemplates.SelectedIndex = 0;
 		}
 
 		private CSourceLocator locator;

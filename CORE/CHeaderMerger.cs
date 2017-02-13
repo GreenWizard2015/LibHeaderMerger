@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
+using CORE.Internals;
 
 namespace CORE {
 	public class CHeaderMerger {
@@ -37,8 +39,9 @@ namespace CORE {
 				yield return mainHeader.asDirective();
 				yield break;
 			}
-			
-			yield return ("// " + mainHeader.Name);
+
+			var DT = File.GetLastWriteTimeUtc(mainHeader.FullPath).ToString("G");
+			yield return (string.Format("// {0} ({1})", mainHeader.Name, DT));
 
 			var header = mainHeader.Header();
 			foreach(var part in header.split()) {

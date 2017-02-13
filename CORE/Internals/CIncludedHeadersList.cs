@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CORE {
+namespace CORE.Internals {
 	internal class CIncludedHeadersList {
 		private readonly List<string> _list;
 

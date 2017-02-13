@@ -41,15 +41,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CFileEntry.cs" />
-    <Compile Include="CHeaderContent.cs" />
-    <Compile Include="CHeaderFile.cs" />
-    <Compile Include="CHeaderLine.cs" />
+    <Compile Include="Internals\CHeaderContent.cs" />
+    <Compile Include="Internals\CHeaderFile.cs" />
+    <Compile Include="Internals\CHeaderLine.cs" />
     <Compile Include="CHeaderMerger.cs" />
-    <Compile Include="CIncludedHeadersList.cs" />
-    <Compile Include="CIncludeDirective.cs" />
+    <Compile Include="Internals\CIncludedHeadersList.cs" />
+    <Compile Include="Internals\CIncludeDirective.cs" />
     <Compile Include="CPath.cs" />
-    <Compile Include="CPathReader.cs" />
-    <Compile Include="CResolvedInclude.cs" />
+    <Compile Include="Internals\CPathReader.cs" />
+    <Compile Include="Internals\CResolvedInclude.cs" />
     <Compile Include="CSourceLocator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

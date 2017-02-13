@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace CORE {
+namespace CORE.Internals {
 	internal class CHeaderFile {
 		private readonly CPathReader _file;
 

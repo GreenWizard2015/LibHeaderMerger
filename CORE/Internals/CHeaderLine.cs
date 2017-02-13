@@ -1,4 +1,4 @@
-﻿namespace CORE {
+﻿namespace CORE.Internals {
 	internal class CHeaderLine {
 		private readonly CResolvedInclude _include;
 		private readonly string _code;

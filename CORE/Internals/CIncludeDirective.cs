@@ -1,5 +1,5 @@
-namespace CORE {
-	public class CIncludeDirective {
+namespace CORE.Internals {
+	internal class CIncludeDirective {
 		public readonly string Name;
 		public readonly bool isRelative;
 

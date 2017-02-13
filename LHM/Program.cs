@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using CORE;
 
 namespace LHM {
@@ -10,8 +9,10 @@ namespace LHM {
 				if(null == param) {
 					showHelp();
 				} else {
+					var start = DateTime.Now;
 					doWork(param);
-					Console.WriteLine("Done.");
+					var elapsed = (DateTime.Now - start).ToString(@"hh\:mm\:ss\.fff");
+					Console.WriteLine(string.Format("Done. ({0})", elapsed));
 				}
 			} catch (Exception e) {
 				Console.WriteLine(e.ToString());

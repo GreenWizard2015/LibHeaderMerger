@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace CORE {
+namespace CORE.Internals {
 	internal class CHeaderContent {
 		private readonly string _content;
 
