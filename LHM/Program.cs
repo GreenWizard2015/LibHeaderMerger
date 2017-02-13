@@ -9,6 +9,8 @@ namespace LHM {
 				if(null == param) {
 					showHelp();
 				} else {
+					Console.WriteLine("Start merging headers");
+
 					var start = DateTime.Now;
 					doWork(param);
 					var elapsed = (DateTime.Now - start).ToString(@"hh\:mm\:ss\.fff");
@@ -17,7 +19,6 @@ namespace LHM {
 			} catch (Exception e) {
 				Console.WriteLine(e.ToString());
 			}
-			Console.ReadLine();
 		}
 
 		private static void showHelp() {

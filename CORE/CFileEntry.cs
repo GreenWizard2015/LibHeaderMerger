@@ -1,4 +1,5 @@
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace CORE {
 	public class CFileEntry {
@@ -19,7 +20,9 @@ namespace CORE {
 		}
 
 		public string content() {
-			return File.ReadAllText(_path.Normalized);
+			var path = _path.Normalized;
+			var exist = File.Exists(path);
+			return exist ? File.ReadAllText(path) : "";
 		}
 	}
 }

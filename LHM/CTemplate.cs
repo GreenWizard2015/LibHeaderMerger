@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using CORE;
 
 namespace LHM {
@@ -19,10 +20,13 @@ namespace LHM {
 			return _file.content();
 		}
 
-		public void put(string content) {
+		public void put(string _content) {
 			var destPath = _destDir.resolve(_file.Name).changeExtension(".h");
 			System.IO.Directory.CreateDirectory(destPath.parent().Normalized);
-			File.WriteAllText(destPath.Normalized, content);
+
+			var oldContent = _file.content();
+			if(!_content.Equals(oldContent))
+				File.WriteAllText(destPath.Normalized, _content);
 		}
 
 		public CPath Directory() {
